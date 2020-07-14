@@ -1,0 +1,43 @@
+---
+- hosts: all
+  tasks:
+    - name: Include variables depending on OS / Linux distribution
+      include_vars: "{{ item }}"
+      with_first_found:
+        - files: ["os_{{ ansible_facts['os_family'] }}.yml"]
+          skip: true
+          errors: ignore
+    - name: Include variables depending on OS family
+      include_vars: "{{ item }}"
+      with_first_found:
+        - files: ["family_{{ ansible_facts['os_family'] }}.yml"]
+          skip: true
+          errors: ignore
+    - name: Load secrets if available
+      include_vars: "{{ item }}"
+      with_first_found:
+        - files: ["secrets.yml"]
+          skip: true
+          errors: ignore
+    - name: Load terraform if available
+      include_vars: "{{ item }}"
+      with_first_found:
+        - files: ["terraform.yml"]
+          skip: true
+          errors: ignore
+    - include_role:
+        name: chasinglogic.os_packages
+
+- hosts: galactica
+  become: true
+  become_user: root
+  roles:
+    - chasinglogic.ansible_users
+    - chasinglogic.podman
+
+- hosts: kube-workers
+  become: true
+  become_user: root
+  roles:
+    # - chasinglogic.ansible_users
+    # - kube-worker

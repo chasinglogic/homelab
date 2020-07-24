@@ -2,4 +2,4 @@
 - src: chasinglogic.os_packages
   version: 1.1.0
 - src: chasinglogic.ansible_users
-- src: chasinglogic.podman
+- src: chasinglogic.docker_services

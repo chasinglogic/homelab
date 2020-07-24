@@ -1,8 +1,18 @@
 ---
-rpm_packages:
-  - epel-release
+deb_packages:
+  - git
+  - python3
+  - python3-pip
 
-podman_services:
+users:
+  - username: git
+    name: Git Service Account
+    home: /var/repositories
+    update_password: on_create
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMhFuwNZolKWN7GdRpnnPI1YhGzxxEWC3qmo03EHkzo6DaLOkTvzVaCfE4t9sJNMYKcouDaclPFgv/gE1f4wzohk3VeZE6OHTDGZTsQjAw2A1PhNhYhJlncb0gpzn8piqdE4Ot8kGVugr9Llabfd/C22z3B7eBUWbkYqh5K5YUcNWc9fKnR+2wYBcL/WDhi7OyMQ3uHbqChMMyYDxYOTh8yeFXodWRfAN77wEUA3ZfuPBy5dyGWk+bFgjo/wKq/ItAwRjK3vEnEuOTG8G7Nb4zvhlvYmcQ28BxMZGaXlNA5JY1zh2fQfv4y1jgQh/TMMaB/Z5vcJ2FFBUdcCKloVbn mathewrobinson@MacBook-Pro-4.local"
+
+docker_services:
   - image_name: pihole/pihole
     service_name: pihole
     image_tag: latest
